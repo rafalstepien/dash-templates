@@ -16,7 +16,5 @@ def get_table(data):
     table = dbc.Table(table_header + table_body,
                       bordered=True,
                       hover=True,
-                      striped=True,
-    )
-
+                      striped=True,)
     return table

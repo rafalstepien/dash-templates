@@ -211,6 +211,7 @@ dmypy.json
 .pyre/
 
 .idea
+*.pyc
 
 # End of https://www.gitignore.io/api/linux,python,pycharm
 

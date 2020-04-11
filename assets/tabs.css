@@ -10,3 +10,7 @@
   width: 100px;
   display: inline-block;
 }
+
+.navbar-nav .open .dropdown-menu {
+    background-color: #111111;
+}

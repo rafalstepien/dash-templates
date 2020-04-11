@@ -1,15 +1,18 @@
 import pandas as pd
 from collections import defaultdict, OrderedDict
+import io
+import base64
 
 
 class Data:
 
-    def __init__(self, path, sep):
-        self.content = pd.read_csv(path, sep=sep)
-        self.file = path.split("/")[-1]
-
-    def __repr__(self):
-        return "Data({})".format(self.file)
+    def __init__(self, content, filename):
+        content_type, content_string = content.split(',')
+        decoded = base64.b64decode(content_string)
+        if filename.endswith(".tsv"):
+            self.content = pd.read_csv((io.StringIO(decoded.decode('utf-8'))), sep="\t")
+        elif filename.endswith(".csv"):
+            self.content = pd.read_csv((io.StringIO(decoded.decode('utf-8'))))
 
     def head(self, n):
         print(self.content.head(n))
