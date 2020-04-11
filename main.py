@@ -16,6 +16,8 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 # # DROPDOWN MENU IN NAVBAR
 view = dcc.Dropdown(
     id='main-dropdown',
+    style={'height': '30px', 'width': '500px'},
+    placeholder="Select view",
     options=[
             {'label': 'Length distribution plot', 'value': 'Length distribution plot'},
             {'label': 'Transcripts with length 1300-1600', 'value': 'Transcripts with length 1300-1600'},
@@ -31,8 +33,8 @@ files = dcc.Upload(
 # NAVBAR
 navbar = dbc.NavbarSimple(
     children=[
-        files,
-        view,
+        html.Div(files, className="p-1"),
+        html.Div(view, className="p-1"),
         ],
     brand="MNM Plotting",
     color="#1a1a1a",

@@ -14,3 +14,9 @@
 .navbar-nav .open .dropdown-menu {
     background-color: #111111;
 }
+
+div.ex1 {
+  width: 500px;
+  margin: auto;
+  border: 3px solid #73AD21;
+}
