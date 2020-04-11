@@ -30,9 +30,17 @@ files = dcc.Upload(
               children=dbc.Button("Select Files")
               )
 
+# CURRENT FILE UPDATED INFO
+updated = dbc.Badge(
+    id="updated-file",
+    color="primary",
+    className="mr-1"
+)
+
 # NAVBAR
 navbar = dbc.NavbarSimple(
     children=[
+        html.H4(updated),
         html.Div(files, className="p-1"),
         html.Div(view, className="p-1"),
         ],
@@ -49,10 +57,10 @@ app.layout = html.Div(children=[
 
 
 @app.callback(Output('output-data-upload', 'children'),
-              [Input('upload-data', 'contents'), Input("main-dropdown", "value")]
+              [Input('upload-data', 'contents'), Input("main-dropdown", "value")],
+              [State('upload-data', 'filename')]
               )
-def get_input_file(content, value):
-    filename = "abundance.tsv"
+def get_input_file(content, value, filename):
     if content is not None:
         data = Data(content, filename)
         if value == "Transcripts with length 1300-1600":
@@ -61,7 +69,17 @@ def get_input_file(content, value):
             x, y = data.get_histogram_data()
             return create_line_chart(x, y)
         else:
-            return dbc.Alert("Please input file and select view type", color="warning")
+            return dbc.Alert("Please select view type", color="primary")
+    else:
+        return dbc.Alert("Please update file", color="primary")
+
+
+@app.callback(Output('updated-file', 'children'),
+              [Input('upload-data', 'contents')],
+              [State('upload-data', 'filename')])
+def file_updated(contents, filename):
+    if contents is not None:
+        return filename
 
 
 if __name__ == "__main__":
