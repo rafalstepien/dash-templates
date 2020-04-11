@@ -1,7 +1,7 @@
 import dash_core_components as dcc
 
 
-def create_line_chart(x, y):
+def create_histogram(x, y):
     graph = dcc.Graph(
         figure={
             'data': [
@@ -21,4 +21,3 @@ def create_line_chart(x, y):
             }
         })
     return graph
-

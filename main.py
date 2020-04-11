@@ -5,9 +5,9 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 from Data.Data import Data
-from plot.histogram import create_line_chart
+from plot.histogram import create_histogram
 from dash.dependencies import Input, Output, State
-from table.table_backend import get_table
+from tables.tables import get_table
 
 # CONFIG
 external_stylesheets = [dbc.themes.CYBORG]
@@ -21,6 +21,7 @@ view = dcc.Dropdown(
     options=[
             {'label': 'Length distribution plot', 'value': 'Length distribution plot'},
             {'label': 'Transcripts with length 1300-1600', 'value': 'Transcripts with length 1300-1600'},
+            {'label': '10 most expressed transcripts', 'value': '10 most expressed transcripts'}
     ],
 )
 
@@ -67,7 +68,9 @@ def get_input_file(content, value, filename):
             return get_table(data.get_medium_length_subset())
         elif value == "Length distribution plot":
             x, y = data.get_histogram_data()
-            return create_line_chart(x, y)
+            return create_histogram(x, y)
+        elif value == "10 most expressed transcripts":
+            return get_table(data.get_most_expressed())
         else:
             return dbc.Alert("Please select view type", color="primary")
     else:

@@ -34,3 +34,7 @@ class Data:
         x = list(lengths_occurrences.keys())
         y = list(lengths_occurrences.values())
         return x, y
+
+    def get_most_expressed(self):
+        sorted_by_tpm = self.content.sort_values(by=['tpm'], ascending=False)
+        return sorted_by_tpm.head(10)
