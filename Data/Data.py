@@ -20,8 +20,8 @@ class Data:
     def get_medium_length_subset(self):
         mediums = pd.DataFrame(columns=list(self.content))
         for id, row in self.content.iterrows():
-            # if 1300 < int(row['length']) < 1600:
-            if int(row['length']) == 1302:
+            if 1300 < int(row['length']) < 1600:
+            # if int(row['length']) == 1302:
                 mediums = mediums.append(row)
         return mediums
 

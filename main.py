@@ -17,10 +17,9 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 view = dcc.Dropdown(
     id='main-dropdown',
     options=[
-            {'label': 'Plot', 'value': 'Plot'},
-            {'label': 'Table', 'value': 'Table'},
+            {'label': 'Length distribution plot', 'value': 'Length distribution plot'},
+            {'label': 'Transcripts with length 1300-1600', 'value': 'Transcripts with length 1300-1600'},
     ],
-    value="Plot"
 )
 
 # FILES UPLOAD BUTTON
@@ -28,7 +27,6 @@ files = dcc.Upload(
               id='upload-data',
               children=dbc.Button("Select Files")
               )
-
 
 # NAVBAR
 navbar = dbc.NavbarSimple(
@@ -55,13 +53,13 @@ def get_input_file(content, value):
     filename = "abundance.tsv"
     if content is not None:
         data = Data(content, filename)
-        if value == "Table":
+        if value == "Transcripts with length 1300-1600":
             return get_table(data.get_medium_length_subset())
-        elif value == "Plot":
+        elif value == "Length distribution plot":
             x, y = data.get_histogram_data()
             return create_line_chart(x, y)
         else:
-            return "Please input file and pick view to display"
+            return dbc.Alert("Please input file and select view type", color="warning")
 
 
 if __name__ == "__main__":
